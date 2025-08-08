@@ -1,0 +1,15 @@
+1. 
+Import the dataset
+Use pandas to process csv file (The model will take a day's stats as input, and the label as outcome price [or up/down])
+
+2.
+Separate into training and testing sets
+
+3.
+Initialize model and training
+
+4.
+Train
+
+5.
+Test and plot accuracy
