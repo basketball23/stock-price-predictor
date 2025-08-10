@@ -1,6 +1,9 @@
 1. 
 Import the dataset
-Use pandas to process csv file (The model will take a day's stats as input, and the label as outcome price [or up/down])
+
+Use pandas to separate the file by months, and label the data for use in training/testing
+
+Use pandas to process csv file (The model will take a month's movements as input, and then predict up or down for the next day)
 
 2.
 Separate into training and testing sets
