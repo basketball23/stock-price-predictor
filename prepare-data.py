@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
+import os
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
+list_file_path = os.path.join(base_dir, "prices", "symbols_valid_meta.csv")
 
-df = pd.read_csv("prices/symbols_valid_meta.csv")
+df = pd.read_csv(list_file_path)
 symbol_list = df['Symbol'].tolist()
 
 # Parse data for usage
@@ -15,7 +18,8 @@ Y = []
 
 for symbol in symbol_list:
     try:
-        symbol_df = pd.read_csv(f"prices/symbols_merged/{symbol}.csv")
+        symbol_file_path = os.path.join(base_dir, "prices", "symbols_merged", f"{symbol}.csv")
+        symbol_df = pd.read_csv(symbol_file_path)
     except FileNotFoundError:
         pass
     
@@ -48,3 +52,9 @@ for symbol in symbol_list:
 
 
 print(len(X))
+print(len(Y))
+
+X = np.array(X)
+Y = np.array(Y)
+
+np.savez("stock_data.npz", X_data=X, Y_data=Y)
