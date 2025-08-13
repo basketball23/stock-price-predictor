@@ -9,21 +9,42 @@ symbol_list = df['Symbol'].tolist()
 
 # 60 trading day's worth of inputs,
 # 1 trading day for labelling (up or down)
+
+X = []
+Y = []
+
 for symbol in symbol_list:
-    symbol_df = pd.read_csv(f"prices/symbols_merged/{symbol}.csv")
+    try:
+        symbol_df = pd.read_csv(f"prices/symbols_merged/{symbol}.csv")
+    except FileNotFoundError:
+        pass
+    
 
     day_count = 0
 
-    for index, row in symbol_df.iterrows():
-        day_count += 1
-        
-        if index == symbol_df.index[-1]:
-            pass
-            # 
+    current_X = []
 
+    for index, row in symbol_df.iterrows():
+
+        change_val = row['Close'] - row['Open']
+        change_direction = 0
+
+        if change_val > 0:
+            change_direction = 1
+
+        
         if day_count == 60:
-            # add logic to add the next label for the 60 days
+
+            X.append(current_X)
+            Y.append(change_direction)
+
+            current_X = []
             day_count == 0
 
         else:
-            pass
+            current_X.append(change_direction)
+
+        day_count += 1
+
+
+print(len(X))
